@@ -10,7 +10,6 @@ TagManager:
   - PlayerHand
   - Destroyer
   - TargetBlock
-  - Keycard
   layers:
   - Default
   - TransparentFX
@@ -20,7 +19,7 @@ TagManager:
   - UI
   - Player
   - Mirror
-  - 
+  - Camera
   - 
   - 
   - 
