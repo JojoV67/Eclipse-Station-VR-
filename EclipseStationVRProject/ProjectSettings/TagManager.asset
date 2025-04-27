@@ -9,7 +9,10 @@ TagManager:
   - Anchor
   - PlayerHand
   - Destroyer
+<<<<<<< HEAD
   - TargetBlock
+=======
+>>>>>>> parent of 5ea5c4b (Tests and Updates - Week 10)
   layers:
   - Default
   - TransparentFX

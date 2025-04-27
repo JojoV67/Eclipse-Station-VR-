@@ -14,12 +14,15 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/MAP STATION/Scene/Eclipse Station.unity
     guid: f15aaa4670c2ac54eae12cb2dda6e0c8
+<<<<<<< HEAD
   - enabled: 1
     path: Assets/Camila's Folder/CamisGravityPractice.unity
     guid: 2dba25de8f945d14284f976142121422
   - enabled: 1
     path: Assets/Camila's Folder/Layout 2.0.unity
     guid: 1159dad3510260f45b9855bc24c720c5
+=======
+>>>>>>> parent of 5ea5c4b (Tests and Updates - Week 10)
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: dd7f8bcfe63022342a9b5d6530df680e,
       type: 2}
