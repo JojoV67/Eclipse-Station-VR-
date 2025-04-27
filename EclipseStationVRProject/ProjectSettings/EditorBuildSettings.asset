@@ -14,21 +14,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/MAP STATION/Scene/Eclipse Station.unity
     guid: f15aaa4670c2ac54eae12cb2dda6e0c8
-<<<<<<< HEAD
-<<<<<<< HEAD
   - enabled: 1
     path: Assets/Camila's Folder/CamisGravityPractice.unity
     guid: 2dba25de8f945d14284f976142121422
   - enabled: 1
     path: Assets/Camila's Folder/Layout 2.0.unity
     guid: 1159dad3510260f45b9855bc24c720c5
-=======
->>>>>>> parent of 5ea5c4b (Tests and Updates - Week 10)
-=======
->>>>>>> parent of 74b0364 (Camilas Update)
   m_configObjects:
-    com.unity.xr.management.loader_settings: {fileID: 11400000, guid: e3aee76b9372917449aef639e2f74814,
-      type: 2}
-    com.unity.xr.openxr.settings4: {fileID: 11400000, guid: 87b413c5a910b15498a98200731b1754,
-      type: 2}
+    com.unity.xr.management.loader_settings: {fileID: 11400000, guid: e3aee76b9372917449aef639e2f74814, type: 2}
+    com.unity.xr.openxr.settings4: {fileID: 11400000, guid: 87b413c5a910b15498a98200731b1754, type: 2}
   m_UseUCBPForAssetBundles: 0

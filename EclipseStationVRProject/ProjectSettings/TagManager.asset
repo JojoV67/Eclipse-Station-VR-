@@ -9,13 +9,7 @@ TagManager:
   - Anchor
   - PlayerHand
   - Destroyer
-<<<<<<< HEAD
-<<<<<<< HEAD
   - TargetBlock
-=======
->>>>>>> parent of 5ea5c4b (Tests and Updates - Week 10)
-=======
->>>>>>> parent of 74b0364 (Camilas Update)
   layers:
   - Default
   - TransparentFX
