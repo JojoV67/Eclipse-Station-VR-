@@ -1,4 +1,4 @@
-using UnityEngine;
+/*using UnityEngine;
 
 public class TargetBlock : MonoBehaviour
 {
@@ -44,4 +44,95 @@ public class TargetBlock : MonoBehaviour
     //       HitByBlaster(); // Rename HitByBlaster to something like Die()
     //    }
     // }
+}*/
+
+/*using UnityEngine;
+
+public class TargetBlock : MonoBehaviour
+{
+    [Header("Effects")]
+    public GameObject disintegrationEffectPrefab; // Assign your disintegration particle effect prefab
+    public float delayBeforeDestroy = 0.1f;
+
+    [Header("Audio")]
+    public AudioClip destroySound; // Optional sound to play when disintegrating
+    [Range(0f, 1f)]
+    public float destroySoundVolume = 0.8f;
+
+    private bool isHit = false;
+
+    public void HitByBlaster()
+    {
+        if (isHit) return;
+        isHit = true;
+
+        // --- Spawn the particle effect ---
+        if (disintegrationEffectPrefab != null)
+        {
+            Instantiate(disintegrationEffectPrefab, transform.position, Quaternion.identity);
+        }
+
+        // --- Play sound effect ---
+        if (destroySound != null)
+        {
+            AudioSource.PlayClipAtPoint(destroySound, transform.position, destroySoundVolume);
+        }
+
+        // --- Optional: Instantly hide the block visually ---
+        Renderer rend = GetComponent<Renderer>();
+        if (rend != null) rend.enabled = false;
+
+        Collider col = GetComponent<Collider>();
+        if (col != null) col.enabled = false;
+
+        // --- Schedule destruction ---
+        Destroy(gameObject, delayBeforeDestroy);
+    }
+}*/
+
+using UnityEngine;
+
+public class TargetBlock : MonoBehaviour
+{
+    [Header("Effects")]
+    public GameObject dissolveEffectPrefab; // <- Assign the edited "Dissolve" prefab here
+    public float delayBeforeDestroy = 2f; // Match this with effect duration
+
+    [Header("Audio")]
+    public AudioClip destroySound; // Optional sound to play when disintegrating
+    [Range(0f, 1f)]
+    public float destroySoundVolume = 0.8f;
+
+    private bool isHit = false;
+
+    public void HitByBlaster()
+    {
+        if (isHit) return;
+        isHit = true;
+
+        // Spawn the dissolve effect
+        if (dissolveEffectPrefab != null)
+        {
+            //GameObject effect = Instantiate(dissolveEffectPrefab, transform.position, Quaternion.identity);
+            GameObject effect = Instantiate(dissolveEffectPrefab, transform.position, Quaternion.identity, transform);
+        }
+
+        // --- Play sound effect ---
+        if (destroySound != null)
+        {
+            AudioSource.PlayClipAtPoint(destroySound, transform.position, destroySoundVolume);
+        }
+
+        // Optional: Hide visuals immediately
+        Renderer rend = GetComponent<Renderer>();
+        if (rend != null) rend.enabled = false;
+
+        Collider col = GetComponent<Collider>();
+        if (col != null) col.enabled = false;
+
+        // Destroy the object after delay
+        Destroy(gameObject, delayBeforeDestroy);
+    }
 }
+
+

@@ -85,6 +85,9 @@ public class BlasterGun : MonoBehaviour
 
     private XRGrabInteractable grabInteractable;
 
+    [Header("Visual Indicator")]
+    public GameObject hoverIcon;
+
     void Awake()
     {
         grabInteractable = GetComponent<XRGrabInteractable>();
@@ -99,6 +102,7 @@ public class BlasterGun : MonoBehaviour
         if (grabInteractable != null)
         {
             grabInteractable.activated.AddListener(Shoot);
+            grabInteractable.selectEntered.AddListener(HideHoverIcon);
         }
     }
 
@@ -107,6 +111,15 @@ public class BlasterGun : MonoBehaviour
         if (grabInteractable != null)
         {
             grabInteractable.activated.RemoveListener(Shoot);
+            grabInteractable.selectEntered.RemoveListener(HideHoverIcon);
+        }
+    }
+
+    private void HideHoverIcon(SelectEnterEventArgs args)
+    {
+        if (hoverIcon != null)
+        {
+            hoverIcon.SetActive(false);
         }
     }
 
