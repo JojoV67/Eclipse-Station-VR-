@@ -17,6 +17,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Camila's Folder/Layout 2.0.unity
     guid: 1159dad3510260f45b9855bc24c720c5
+  - enabled: 1
+    path: Assets/Jorge's Folder/Scenes/CountdownTest.unity
+    guid: 32d5b793782ec93439f4eafd436da237
+  - enabled: 1
+    path: Assets/Jorge's Folder/Scenes/Dialogue and Keycard Test.unity
+    guid: 0ba410a0cd930d84e9fc9f1eb96fb741
   m_configObjects:
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: e3aee76b9372917449aef639e2f74814,
       type: 2}
