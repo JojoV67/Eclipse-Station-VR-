@@ -101,6 +101,8 @@ public class ButtonPress : MonoBehaviour
     private Renderer rend;
     public AudioSource pressSound;
 
+    public FadeScreen fadeScreen; // Assign this in the inspector
+
     void Start()
     {
         rend = GetComponent<Renderer>();
@@ -121,7 +123,12 @@ public class ButtonPress : MonoBehaviour
             FindFirstObjectByType<CountdownStarter>().RegisterButtonPress();
 
             // Optionally delay destruction to allow sound and visual change to play
-            Destroy(gameObject, 0.3f); // Adjust delay if needed
+            //Destroy(gameObject, 0.3f); // Adjust delay if needed
+
+            if (fadeScreen != null)
+            {
+                fadeScreen.FadeOut(); // Or FadeIn() depending on what you want
+            }
         }
     }
 
