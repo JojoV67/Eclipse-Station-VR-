@@ -324,6 +324,7 @@ MonoBehaviour:
   shootForce: 20
   shootSound: {fileID: 8300000, guid: 40885f61da604764cb6aeedac5c4325d, type: 3}
   shootSoundVolume: 0.7
+  hoverIcon: {fileID: 0}
 --- !u!64 &2764449139208127439
 MeshCollider:
   m_ObjectHideFlags: 0

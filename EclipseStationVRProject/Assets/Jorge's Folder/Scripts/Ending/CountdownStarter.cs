@@ -1497,7 +1497,7 @@ public class CountdownStarter : MonoBehaviour
     public void StartCountdown()
     {
         countdownActive = true;
-        countdownTime = 120f; // 2 minutes
+        countdownTime = 150f; // 2:30 minutes
         UpdateCountdownDisplay();
 
         alarmSound.Play(); // Start Alarm
