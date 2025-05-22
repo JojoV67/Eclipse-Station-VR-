@@ -40,6 +40,7 @@ public class GameStartMenu : MonoBehaviour
     public void QuitGame()
     {
         Application.Quit();
+        /*Added*/UnityEditor.EditorApplication.isPlaying = false; // Stops play mode in Editor
     }
 
     public void StartGame()
