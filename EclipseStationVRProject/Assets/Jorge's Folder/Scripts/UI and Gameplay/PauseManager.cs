@@ -163,9 +163,8 @@ public class PauseManager : MonoBehaviour
 
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false; // Stops play mode in Editor
-        Application.Quit(); // Quits the built application
 #else
-        Moved up
+        Application.Quit(); // Quits the built application
 #endif
     }
 }
