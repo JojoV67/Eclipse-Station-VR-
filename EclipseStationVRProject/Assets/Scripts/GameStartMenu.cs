@@ -42,9 +42,9 @@ public class GameStartMenu : MonoBehaviour
         Application.Quit();
 
         //Added for Exhibition
-#if UNITY_EDITOR
+/*#if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false; // Stops play mode in Editor
-#endif
+#endif*/
     }
 
     public void StartGame()
