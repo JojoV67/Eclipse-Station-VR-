@@ -12,6 +12,7 @@ TagManager:
   - TargetBlock
   - StartZone
   - Keycard
+  - Rover
   layers:
   - Default
   - TransparentFX
