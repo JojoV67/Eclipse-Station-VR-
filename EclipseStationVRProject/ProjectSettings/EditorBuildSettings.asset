@@ -33,11 +33,14 @@ EditorBuildSettings:
     path: Assets/Jorge's Folder/Scenes/Dialogue and Keycard Test.unity
     guid: 0ba410a0cd930d84e9fc9f1eb96fb741
   - enabled: 1
-    path: Assets/Jorge's Folder/Scenes/Part 2/Jetpaack Level/Jetpack Level.unity
+    path: Assets/Jorge's Folder/Scenes/Part 2/Jetpaack Level/Jetpack Test.unity
     guid: c08d30e7d25f3294bab3bf06337ff0ce
   - enabled: 1
-    path: Assets/Jorge's Folder/Scenes/Part 2/Rover Level/Rover Level.unity
+    path: Assets/Jorge's Folder/Scenes/Part 2/Rover Level/Rover Test.unity
     guid: a7d93b4c6f082314bb87dcafb143ad6a
+  - enabled: 1
+    path: Assets/Jorge's Folder/Scenes/Part 2/Jetpaack Level/Jetpack Level.unity
+    guid: 2f2600847132cfb498ab998ecf372399
   m_configObjects:
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: e3aee76b9372917449aef639e2f74814,
       type: 2}
