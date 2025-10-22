@@ -13,6 +13,7 @@ TagManager:
   - StartZone
   - Keycard
   - Rover
+  - SlowTerrain
   layers:
   - Default
   - TransparentFX
