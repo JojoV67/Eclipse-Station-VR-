@@ -383,7 +383,7 @@ public class IronManJetpackController : MonoBehaviour
 
     private void HandleAirMovement(float leftThrust, float rightThrust, float totalThrust, bool usingJets)
     {
-        if (usingJets)
+        /*if (usingJets)
         {
             fuel -= fuelDrainRate * Time.fixedDeltaTime;
             fuel = Mathf.Max(0f, fuel);
@@ -411,6 +411,84 @@ public class IronManJetpackController : MonoBehaviour
             // Haptics
             SendHaptics(leftDevice, leftThrust);
             SendHaptics(rightDevice, rightThrust);
+        }
+        else
+        {
+            // Refill fuel slowly
+            fuel += fuelRechargeRate * Time.fixedDeltaTime;
+            fuel = Mathf.Min(fuel, 100f);
+
+            if (leftThrusterFX) leftThrusterFX.Stop();
+            if (rightThrusterFX) rightThrusterFX.Stop();
+
+            if (jetAudio) jetAudio.volume = Mathf.Lerp(jetAudio.volume, 0f, 0.05f);
+
+            StopHaptics(leftDevice);
+            StopHaptics(rightDevice);
+        }*/
+
+        //Update 10/23/2025
+        if (usingJets)
+        {
+            fuel -= fuelDrainRate * Time.fixedDeltaTime;
+            fuel = Mathf.Max(0f, fuel);
+
+            // --- Calculate thrust direction based on hand tilt ---
+            // Hands pointing down push you up; pointing back pushes you forward
+            Vector3 leftDir = -leftHand.up;
+            Vector3 rightDir = -rightHand.up;
+            Vector3 combinedDir = (leftDir + rightDir).normalized;
+
+            // Slightly favor forward motion if player tilts arms backward
+            float forwardInfluence = Vector3.Dot(combinedDir, transform.forward);
+            Vector3 forwardBoost = transform.forward * Mathf.Clamp01(forwardInfluence) * 1f;
+
+            // Blend vertical and forward thrusts
+            Vector3 thrustDirection = (combinedDir + forwardBoost).normalized;
+
+            // Apply force more naturally
+            rb.AddForce(thrustDirection * thrustForce, ForceMode.Acceleration);
+
+            // Maintain some momentum instead of cutting it
+            rb.linearVelocity = Vector3.Lerp(rb.linearVelocity,
+                Vector3.ClampMagnitude(rb.linearVelocity, maxSpeed),
+                Time.fixedDeltaTime * hoverStabilization);
+
+            // Jet sound & FX
+            if (leftThrusterFX && !leftThrusterFX.isPlaying) leftThrusterFX.Play();
+            if (rightThrusterFX && !rightThrusterFX.isPlaying) rightThrusterFX.Play();
+
+            if (jetAudio && !jetAudio.isPlaying) jetAudio.Play();
+            jetAudio.volume = Mathf.Lerp(jetAudio.volume, totalThrust, 0.1f);
+            jetAudio.pitch = 1f + totalThrust * 0.5f;
+
+            SendHaptics(leftDevice, leftThrust);
+            SendHaptics(rightDevice, rightThrust);
+
+            // --- Calculate thrust direction based on hand orientation ---
+            /*Vector3 leftDown = -leftHand.up;      // down direction of left hand
+            Vector3 rightDown = -rightHand.up;    // down direction of right hand
+
+            // Calculate how much the hands are tilted backward or forward relative to the player's forward
+            float leftForwardFactor = Vector3.Dot(leftHand.forward, Vector3.up);   // if pointing forward, this is small
+            float rightForwardFactor = Vector3.Dot(rightHand.forward, Vector3.up);
+
+            // Base lift direction (downward palms = up force)
+            Vector3 liftDir = (leftDown + rightDown).normalized;
+
+            // Add forward influence when hands tilt backward
+            Vector3 forwardDir = transform.forward * Mathf.Clamp01((-leftForwardFactor - rightForwardFactor) * 0.5f);
+
+            // Combine the two for Iron-Man-like control
+            Vector3 thrustDirection = (liftDir + forwardDir * 1.2f).normalized;
+
+            // Apply the force
+            rb.AddForce(thrustDirection * thrustForce, ForceMode.Acceleration);
+
+            // Smooth velocity (preserve forward motion)
+            Vector3 horizontalVel = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z);
+            horizontalVel = Vector3.ClampMagnitude(horizontalVel, maxSpeed);
+            rb.linearVelocity = new Vector3(horizontalVel.x, rb.linearVelocity.y, horizontalVel.z);*/
         }
         else
         {

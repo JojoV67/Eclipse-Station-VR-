@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 19897878}
   - component: {fileID: 19913302}
   m_Layer: 0
-  m_Name: smoke
+  m_Name: smoke crash
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

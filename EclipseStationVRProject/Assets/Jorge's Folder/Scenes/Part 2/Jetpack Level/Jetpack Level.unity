@@ -1930,6 +1930,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 86929885}
+    - targetCorrespondingSourceObject: {fileID: 7174019212652907435, guid: 77ac6b10722bcca4a8baf70e44d89e78,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 86929886}
   m_SourcePrefab: {fileID: 100100000, guid: 77ac6b10722bcca4a8baf70e44d89e78, type: 3}
 --- !u!1 &86929878 stripped
 GameObject:
@@ -2132,7 +2136,7 @@ MonoBehaviour:
     m_Reference: {fileID: -3973434235924526867, guid: c348712bda248c246b8c49b3db54643f,
       type: 3}
   moveAction:
-    m_UseReference: 0
+    m_UseReference: 1
     m_Action:
       m_Name: Move
       m_Type: 0
@@ -2142,7 +2146,8 @@ MonoBehaviour:
       m_Interactions: 
       m_SingletonActionBindings: []
       m_Flags: 0
-    m_Reference: {fileID: 0}
+    m_Reference: {fileID: 6972639530819350904, guid: c348712bda248c246b8c49b3db54643f,
+      type: 3}
   leftThrusterFX: {fileID: 173996540}
   rightThrusterFX: {fileID: 796959407}
   jetAudio: {fileID: 86929881}
@@ -2161,7 +2166,7 @@ MonoBehaviour:
   groundCheckDistance: 0.2
   groundLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1
   lowFuelThreshold: 15
   flashSpeed: 4
 --- !u!54 &86929884
@@ -2188,9 +2193,9 @@ Rigidbody:
   m_ImplicitTensor: 1
   m_UseGravity: 1
   m_IsKinematic: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_Constraints: 112
-  m_CollisionDetection: 0
+  m_CollisionDetection: 2
 --- !u!82 &86929885
 AudioSource:
   m_ObjectHideFlags: 0
@@ -2288,6 +2293,27 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!65 &86929886
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 86929878}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 0
+  serializedVersion: 3
+  m_Size: {x: 1, y: 2.2654274, z: 1}
+  m_Center: {x: 0, y: 0.6327133, z: 0}
 --- !u!1001 &91586353
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8333,7 +8359,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 19863758, guid: 712b3e021143f2a489e39d4ab10b5c84, type: 3}
       propertyPath: InitialModule.startSize.minScalar
-      value: 2.0000
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 19863758, guid: 712b3e021143f2a489e39d4ab10b5c84, type: 3}
+      propertyPath: startDelay.maxCurve.m_Curve.Array.data[0].value
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 19863758, guid: 712b3e021143f2a489e39d4ab10b5c84, type: 3}
+      propertyPath: startDelay.maxCurve.m_Curve.Array.data[1].value
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 19863758, guid: 712b3e021143f2a489e39d4ab10b5c84, type: 3}
       propertyPath: InitialModule.startSize.minCurve.m_Curve.Array.data[0].value
@@ -9641,6 +9675,7 @@ GameObject:
   m_Component:
   - component: {fileID: 357004425}
   - component: {fileID: 357004424}
+  - component: {fileID: 357004426}
   m_Layer: 0
   m_Name: Directional light
   m_TagString: Untagged
@@ -9728,6 +9763,29 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &357004426
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 357004423}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Version: 3
+  m_UsePipelineSettings: 1
+  m_AdditionalLightsShadowResolutionTier: 2
+  m_LightLayerMask: 1
+  m_RenderingLayers: 1
+  m_CustomShadowLayers: 0
+  m_ShadowLayerMask: 1
+  m_ShadowRenderingLayers: 1
+  m_LightCookieSize: {x: 1, y: 1}
+  m_LightCookieOffset: {x: 0, y: 0}
+  m_SoftShadowQuality: 0
 --- !u!4 &358836798 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 490222, guid: 2df16640116260446b007bd4a975385c,
@@ -11298,7 +11356,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 19863758, guid: 712b3e021143f2a489e39d4ab10b5c84, type: 3}
       propertyPath: InitialModule.startSize.minScalar
-      value: 2.0000
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 19863758, guid: 712b3e021143f2a489e39d4ab10b5c84, type: 3}
+      propertyPath: startDelay.maxCurve.m_Curve.Array.data[0].value
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 19863758, guid: 712b3e021143f2a489e39d4ab10b5c84, type: 3}
+      propertyPath: startDelay.maxCurve.m_Curve.Array.data[1].value
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 19863758, guid: 712b3e021143f2a489e39d4ab10b5c84, type: 3}
       propertyPath: InitialModule.startSize.minCurve.m_Curve.Array.data[0].value
@@ -35809,6 +35875,14 @@ PrefabInstance:
     - target: {fileID: 19863758, guid: 712b3e021143f2a489e39d4ab10b5c84, type: 3}
       propertyPath: prewarm
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 19863758, guid: 712b3e021143f2a489e39d4ab10b5c84, type: 3}
+      propertyPath: startDelay.maxCurve.m_Curve.Array.data[0].value
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 19863758, guid: 712b3e021143f2a489e39d4ab10b5c84, type: 3}
+      propertyPath: startDelay.maxCurve.m_Curve.Array.data[1].value
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 19967034, guid: 712b3e021143f2a489e39d4ab10b5c84, type: 3}
       propertyPath: m_VelocityScale

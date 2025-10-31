@@ -17,6 +17,7 @@ public class RoverController : MonoBehaviour
     public InputActionProperty accelerateAction; // Right trigger
     public InputActionProperty brakeAction;      // Left trigger
     public InputActionProperty steerAction;      // Left joystick (Vector2)
+    public InputActionProperty boostAction; // Assign to B button
 
     [Header("Audio")]
     public AudioSource engineSource;
@@ -28,6 +29,9 @@ public class RoverController : MonoBehaviour
     [Range(0.5f, 2f)] public float enginePitchMax = 1.5f;
     public float fadeSpeed = 2f;
     public float maxEngineVolume = 0.6f;
+
+    public AudioClip mudEnterSound;
+    public AudioSource sfxSource; // optional separate source for one-shots
 
     [Header("Boost Settings")]
     public float boostForce = 30f;
@@ -41,13 +45,10 @@ public class RoverController : MonoBehaviour
     public Slider boostSlider;
     public float boostUISmoothSpeed = 3f;
     private float targetBoostValue;
-
-    private bool wasBoostHeld = false;
-
     private bool boosting = false;
     private bool canBoost => boostMeter > 0f;
 
-    public InputActionProperty boostAction; // Assign to B button
+    private bool wasBoostHeld = false;
 
     private Rigidbody rb;
     private bool isBraking;
@@ -59,9 +60,24 @@ public class RoverController : MonoBehaviour
     public Renderer leftArrow;
     public Renderer rightArrow;
     public Renderer boostButton;
-
     public Material normalMaterial;
     public Material highlightMaterial;
+
+    // --- TERRAIN SLOWDOWN ---
+    /*private float defaultAcceleration;
+    private float defaultMaxSpeed;
+    private Coroutine terrainResetCoroutine;*/
+    [Header("Terrain Slowdown Settings")]
+    public float slowMultiplier = 0.5f;   // how much to slow down
+    private float terrainMultiplier = 1f; // current terrain speed factor
+    private float basePitch = 1f; // Default engine pitch multiplier
+
+    //Added 24/10/2025
+    /*void Awake()
+    {
+        defaultAcceleration = acceleration;
+        defaultMaxSpeed = maxSpeed;
+    }*/
 
     void Start()
     {
@@ -232,9 +248,11 @@ public class RoverController : MonoBehaviour
         float brake = brakeAction.action?.ReadValue<float>() ?? 0f;
         Vector2 steer = steerAction.action?.ReadValue<Vector2>() ?? Vector2.zero;
 
-        // --- Forward acceleration ---
-        if (accel > 0.1f && rb.linearVelocity.magnitude < maxSpeed)
-            rb.AddForce(transform.forward * accel * acceleration, ForceMode.Acceleration);
+        // --- Forward acceleration (affected by terrain slowdown)---
+        /*if (accel > 0.1f && rb.linearVelocity.magnitude < maxSpeed)
+            rb.AddForce(transform.forward * accel * acceleration, ForceMode.Acceleration);*/
+        if (accel > 0.1f && rb.linearVelocity.magnitude < maxSpeed * terrainMultiplier)
+            rb.AddForce(transform.forward * accel * acceleration * terrainMultiplier, ForceMode.Acceleration);
 
         // --- Brake or Reverse ---
         if (brake > 0.1f)
@@ -257,7 +275,7 @@ public class RoverController : MonoBehaviour
         transform.Rotate(0f, turn, 0f);
 
         // --- Featherable Boost ---
-        bool boostHeld = (Keyboard.current != null && Keyboard.current.bKey.isPressed) || boostAction.action.IsPressed();
+        bool boostHeld = /*(Keyboard.current != null && Keyboard.current.bKey.isPressed) || */boostAction.action.IsPressed();
 
         if (boostHeld && canBoost)
         {
@@ -271,12 +289,30 @@ public class RoverController : MonoBehaviour
         UpdateBoostUI();
 
         // --- Engine Sound ---
-        if (engineSource)
+        /*if (engineSource)
         {
             float speedPercent = Mathf.Clamp01(rb.linearVelocity.magnitude / maxSpeed);
             float accelOrBrake = Mathf.Max(accel, brake);
             engineSource.pitch = Mathf.Lerp(enginePitchMin, enginePitchMax, speedPercent);
             targetEngineVolume = Mathf.Lerp(0.1f, maxEngineVolume, Mathf.Max(speedPercent, accelOrBrake));
+            engineSource.volume = Mathf.MoveTowards(engineSource.volume, targetEngineVolume, fadeSpeed * Time.fixedDeltaTime);
+        }*/
+        if (engineSource)
+        {
+            float speedPercent = Mathf.Clamp01(rb.linearVelocity.magnitude / maxSpeed);
+
+            // Lower pitch slightly based on terrain slowdown
+            float terrainPitchFactor = Mathf.Lerp(0.6f, 1f, terrainMultiplier);
+
+            // Base pitch adjusted by terrain factor
+            engineSource.pitch = Mathf.Lerp(enginePitchMin, enginePitchMax, speedPercent) * terrainPitchFactor;
+
+
+            // Volume also drops slightly when slowed
+            float accelOrBrake = Mathf.Max(accel, brake);
+            targetEngineVolume = Mathf.Lerp(0.1f, maxEngineVolume * terrainMultiplier, Mathf.Max(speedPercent, accelOrBrake));
+
+            // Smoothly fade volume
             engineSource.volume = Mathf.MoveTowards(engineSource.volume, targetEngineVolume, fadeSpeed * Time.fixedDeltaTime);
         }
 
@@ -298,6 +334,48 @@ public class RoverController : MonoBehaviour
         if (!boostSlider) return;
 
         targetBoostValue = boostMeter / 100f;
+    }
+
+    //Added 24/10/2025
+    /*public void ApplyTerrainSlowdown(float speedMultiplier, float duration)
+    {
+        // Cancel any existing reset coroutine
+        if (terrainResetCoroutine != null)
+            StopCoroutine(terrainResetCoroutine);
+
+        // Reduce speed and acceleration temporarily
+        acceleration = defaultAcceleration * speedMultiplier;
+        maxSpeed = defaultMaxSpeed * speedMultiplier;
+
+        // Reset after duration
+        terrainResetCoroutine = StartCoroutine(ResetTerrainEffect(duration));
+    }*/
+
+    //Added 24/10/2025
+    /*private IEnumerator ResetTerrainEffect(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        acceleration = defaultAcceleration;
+        maxSpeed = defaultMaxSpeed;
+        terrainResetCoroutine = null;
+    }*/
+
+    //Added 26/10/2025
+    // --- Slow Terrain System ---
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("SlowTerrain"))
+        {
+            terrainMultiplier = slowMultiplier;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("SlowTerrain"))
+        {
+            terrainMultiplier = 1f;
+        }
     }
 
     void UpdateInputHighlights(float accel, float brake, Vector2 steer, bool boostHeld)
@@ -323,6 +401,19 @@ public class RoverController : MonoBehaviour
             boostButton.material = boostHeld ? highlightMaterial : normalMaterial;
     }
 
+    // Called by SlowTerrain.cs
+    public void ApplyTerrainSlowdown(float multiplier, float duration)
+    {
+        StopAllCoroutines(); // Stop any previous slowdown coroutine
+        StartCoroutine(SlowdownRoutine(multiplier, duration));
+    }
+
+    private IEnumerator SlowdownRoutine(float multiplier, float duration)
+    {
+        terrainMultiplier = multiplier;
+        yield return new WaitForSeconds(duration);
+        terrainMultiplier = 1f; // Return to normal speed
+    }
     /*private IEnumerator Boost()
     {
     /*if (boosting || !canBoost)
@@ -382,6 +473,17 @@ boosting = false;
         yield return new WaitForSeconds(boostCooldown);
         boostMeter = Mathf.Clamp(boostMeter, 0f, 100f);
         UpdateBoostUI();*/
+    public void PlayMudEnterSound(Vector3 position)
+    {
+        if (mudEnterSound)
+        {
+            if (sfxSource)
+                sfxSource.PlayOneShot(mudEnterSound, 0.8f);
+            else
+                AudioSource.PlayClipAtPoint(mudEnterSound, position, 0.8f);
+        }
+    }
+
 }
 
 /*using System.Collections;

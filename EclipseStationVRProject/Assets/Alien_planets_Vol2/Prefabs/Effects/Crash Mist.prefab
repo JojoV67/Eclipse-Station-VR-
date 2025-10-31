@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 19825450}
   - component: {fileID: 19970458}
   m_Layer: 0
-  m_Name: Myst
+  m_Name: Crash Mist
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
