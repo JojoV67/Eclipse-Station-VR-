@@ -54,7 +54,7 @@ EditorBuildSettings:
     path: Assets/Jorge's Folder/Scenes/Part 2/Campfire Hub/CampfireHub.unity
     guid: 98f0d32bea3b4f9428e500b35c86778f
   - enabled: 1
-    path: Assets/Jorge's Folder/Scenes/Part 2/1 Menu.unity
+    path: Assets/Jorge's Folder/Scenes/Part 2/Menu/1 Menu.unity
     guid: b65a6ec3323eb3a4581678949458c690
   m_configObjects:
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: e3aee76b9372917449aef639e2f74814,
